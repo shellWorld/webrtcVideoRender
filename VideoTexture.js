@@ -240,7 +240,7 @@ var VideoTexture = /** @class */ (function () {
         return videoStream;
     };
 
-    VideoTexture.prototype.getMixerVideoStream = function (source) {
+    VideoTexture.prototype.createTexture = function (source) {
         var texture = this.gl.createTexture();
         this.gl.bindTexture(this.gl.TEXTURE_2D, texture);
         this.gl.pixelStorei(this.gl.UNPACK_FLIP_Y_WEBGL, true);
