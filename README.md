@@ -1,10 +1,9 @@
-# [MultiStreamsMixer.js](https://github.com/muaz-khan/MultiStreamsMixer) | [LIVE DEMO](https://www.webrtc-experiment.com/MultiStreamsMixer/)
+# [MultiStreamsMixer.js](https://github.com/muaz-khan/MultiStreamsMixer) | [VideoTexture.js](https://github.com/shellWorld/webrtcVideoRender)
 
 * Mix Multiple Cameras or Videos
 * Mix Multiple Microphones or Audios (Mp3/Wav/Ogg)
-* Mix Multiple Screens or Screen+Video
+* Mix Multiple Screens or Screen+Video (support webgl)
 * Mix Canvas 2D Animation + Camera + Screen
-* and **GET SINGLE STREAM!!**
 
 [![npm](https://img.shields.io/npm/v/multistreamsmixer.svg)](https://npmjs.org/package/multistreamsmixer) [![downloads](https://img.shields.io/npm/dm/multistreamsmixer.svg)](https://npmjs.org/package/multistreamsmixer) [![Build Status: Linux](https://travis-ci.org/muaz-khan/MultiStreamsMixer.png?branch=master)](https://travis-ci.org/muaz-khan/MultiStreamsMixer)
 
@@ -38,7 +37,12 @@ And import/require:
 const MultiStreamsMixer = require('multistreamsmixer');
 import MultiStreamsMixer from 'multistreamsmixer';
 ```
-
+# How to mix video by Webgl
+```javascript
+videoTexture = new VideoTexture([screenStream, cameraStream]);
+videoTexture.render();
+videoPreview.srcObject = videoTexture.getMixedVideoStream();
+```
 # How to mix audios?
 
 ```javascript
