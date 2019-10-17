@@ -77,18 +77,16 @@
             </select>
 
             <br>
-            <canvas id="canvas" width="800" height="600"></canvas>
-<!--            <div id="video-preview" style="margin-top: 15px;">-->
-<!--                <h2 style="display: block;"></h2>-->
-<!--                <video controls playsinline autoplay muted=false volume=0></video>-->
-<!--            </div>-->
+<!--            <canvas id="canvas" width="800" height="600"></canvas>-->
+            <div id="video-preview" style="margin-top: 15px;">
+                <video width="640" height="480" controls playsinline autoplay muted=false volume=0></video>
+            </div>
         </section>
         <script>
 
             var mixer;
             var videoTexture;
-            // var videoPreview = document.querySelector('video');
-            // var videoPreview = document.createElement('video');
+            var videoPreview = document.querySelector('video');
             var mixerOptions = document.querySelector('#mixer-options');
 
             mixerOptions.onchange = function() {
@@ -130,35 +128,33 @@
                     screenStream.width = screen.width; // or 3840
                     screenStream.height = screen.height; // or 2160 
 
-                    cameraStream.width = parseInt((100 / 100) * screenStream.width);
-                    cameraStream.height = parseInt((100 / 100) * screenStream.height);
+                    // cameraStream.width = parseInt((100 / 100) * screenStream.width);
+                    // cameraStream.height = parseInt((100 / 100) * screenStream.height);
                     cameraStream.top = screenStream.height;// - cameraStream.height;
                     cameraStream.left = screenStream.width;// - cameraStream.width;
 
                     // fullCanvasRenderHandler(screenStream, 'Your Screen!');
                     // normalVideoRenderHandler(cameraStream, 'Your Camera!');
-
                     //mixer = new MultiStreamsMixer([screenStream, cameraStream]);
-
                     //mixer.frameInterval = 1;
                     //mixer.startDrawingFrames();
-                    videoTexture = new VideoTexture([screenStream, cameraStream]);
-                    videoTexture.render();
-
-
                     //videoPreview.srcObject = cameraStream;//mixer.getMixedStream();
-
                     //updateMediaHTML('Mixed Screen+Camera!');
 
-                    // addStreamStopListener(screenStream, function() {
-                    //     mixer.releaseStreams();
-                    //     videoPreview.pause();
-                    //     videoPreview.src = null;
-                    //
-                    //     cameraStream.getTracks().forEach(function(track) {
-                    //         track.stop();
-                    //     });
-                    // });
+                    videoTexture = new VideoTexture([screenStream, cameraStream]);
+                    videoTexture.render();
+                    videoPreview.srcObject = videoTexture.getMixedVideoStream();
+
+
+                    addStreamStopListener(screenStream, function() {
+                        mixer.releaseStreams();
+                        videoPreview.pause();
+                        videoPreview.src = null;
+
+                        cameraStream.getTracks().forEach(function(track) {
+                            track.stop();
+                        });
+                    });
                 });
             }
 

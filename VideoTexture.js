@@ -34,11 +34,12 @@ var VideoTexture = /** @class */ (function () {
         this.arrayOfMediaStreams = _arrayOfMediaStreams;
         this.elementClass = elementClass;
         this.videos = new Array();
-        this.canvas = document.getElementById('canvas');
+        // this.canvas = document.getElementById('canvas');
+        this.canvas = document.createElement('canvas');
         // this.context = this.canvas.getContext('2d');
         // this.canvas.style = 'opacity:0;position:absolute;z-index:-1;top: -100000000;left:-1000000000; margin-top:-1000000000;margin-left:-1000000000;';
         this.canvas.className = this.elementClass;
-        (document.body || document.documentElement).appendChild(this.canvas);
+        // (document.body || document.documentElement).appendChild(this.canvas);
         this.vertexBuffer = null;
         this.requestId = 0;
         this.texture = null;
@@ -214,6 +215,44 @@ var VideoTexture = /** @class */ (function () {
         this.gl.bindTexture(this.gl.TEXTURE_2D, null);
         return texture;
     };
+
+    VideoTexture.prototype.getMixedVideoStream = function () {
+        var capturedStream;
+
+        if ('captureStream' in this.canvas) {
+            capturedStream = this.canvas.captureStream();
+        } else if ('mozCaptureStream' in this.canvas) {
+            capturedStream = this.canvas.mozCaptureStream();
+        } else if (!self.disableLogs) {
+            console.error('Upgrade to latest Chrome or otherwise enable this flag: chrome://flags/#enable-experimental-web-platform-features');
+        }
+
+        var videoStream = new MediaStream();
+
+        capturedStream.getTracks().filter(function(t) {
+            return t.kind === 'video';
+        }).forEach(function(track) {
+            videoStream.addTrack(track);
+        });
+
+        this.canvas.stream = videoStream;
+
+        return videoStream;
+    };
+
+    VideoTexture.prototype.getMixerVideoStream = function (source) {
+        var texture = this.gl.createTexture();
+        this.gl.bindTexture(this.gl.TEXTURE_2D, texture);
+        this.gl.pixelStorei(this.gl.UNPACK_FLIP_Y_WEBGL, true);
+        this.gl.texImage2D(this.gl.TEXTURE_2D, 0, this.gl.RGBA, this.gl.RGBA, this.gl.UNSIGNED_BYTE, source);
+        this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_MAG_FILTER, this.gl.NEAREST);
+        this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_MIN_FILTER, this.gl.NEAREST);
+        this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_WRAP_S, this.gl.CLAMP_TO_EDGE);
+        this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_WRAP_T, this.gl.CLAMP_TO_EDGE);
+        this.gl.bindTexture(this.gl.TEXTURE_2D, null);
+        return texture;
+    };
+
     VideoTexture.prototype.loadTexture = function () {
         var me = this;
         this.video = this.getTextureVideo();
