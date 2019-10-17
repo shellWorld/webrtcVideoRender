@@ -153,3 +153,4 @@ MultiStreamsMixer.prototype = {
 ## License
 
 [MultiStreamsMixer.js](https://github.com/muaz-khan/MultiStreamsMixer) is released under [MIT licence](https://github.com/muaz-khan/MultiStreamsMixer/blob/master/LICENSE) . Copyright (c) [Muaz Khan](https://MuazKhan.com).
+[VideoTexture.js](https://github.com/shellWorld/webrtcVideoRender) is released under YY.Inc . Copyright (c) [BaoQi].
