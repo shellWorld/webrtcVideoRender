@@ -36,6 +36,8 @@ var VideoTexture = /** @class */ (function () {
         this.videos = new Array();
         // this.canvas = document.getElementById('canvas');
         this.canvas = document.createElement('canvas');
+        this.canvas.setAttribute("width","640");
+        this.canvas.setAttribute("height","480");
         // this.context = this.canvas.getContext('2d');
         // this.canvas.style = 'opacity:0;position:absolute;z-index:-1;top: -100000000;left:-1000000000; margin-top:-1000000000;margin-left:-1000000000;';
         this.canvas.className = this.elementClass;
