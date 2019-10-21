@@ -79,7 +79,7 @@
             <br>
 <!--            <canvas id="canvas" width="800" height="600"></canvas>-->
             <div id="video-preview" style="margin-top: 15px;">
-                <video width="640" height="480" controls playsinline autoplay muted=false volume=0></video>
+                <video controls playsinline autoplay muted=false volume=0></video>
             </div>
         </section>
         <script>
@@ -122,24 +122,24 @@
 
             function afterScreenCaptured(screenStream) {
                 navigator.mediaDevices.getUserMedia({
-                    video: { width: 640, height: 480 }
+                    video: { width: 1280, height: 640 }
                 }).then(function(cameraStream) {
                     screenStream.fullcanvas = true;
                     screenStream.width = screen.width; // or 3840
                     screenStream.height = screen.height; // or 2160 
 
-                    // cameraStream.width = parseInt((100 / 100) * screenStream.width);
-                    // cameraStream.height = parseInt((100 / 100) * screenStream.height);
-                    cameraStream.top = screenStream.height;// - cameraStream.height;
-                    cameraStream.left = screenStream.width;// - cameraStream.width;
-
-                    // fullCanvasRenderHandler(screenStream, 'Your Screen!');
-                    // normalVideoRenderHandler(cameraStream, 'Your Camera!');
-                    //mixer = new MultiStreamsMixer([screenStream, cameraStream]);
-                    //mixer.frameInterval = 1;
-                    //mixer.startDrawingFrames();
-                    //videoPreview.srcObject = cameraStream;//mixer.getMixedStream();
-                    //updateMediaHTML('Mixed Screen+Camera!');
+                    // cameraStream.width = parseInt((30 / 100) * screenStream.width);
+                    // cameraStream.height = parseInt((30 / 100) * screenStream.height);
+                    // cameraStream.top = screenStream.height - cameraStream.height;
+                    // cameraStream.left = screenStream.width - cameraStream.width;
+                    //
+                    // // fullCanvasRenderHandler(screenStream, 'Your Screen!');
+                    // // normalVideoRenderHandler(cameraStream, 'Your Camera!');
+                    // mixer = new MultiStreamsMixer([screenStream, cameraStream]);
+                    // mixer.frameInterval = 16.7;
+                    // mixer.startDrawingFrames();
+                    // videoPreview.srcObject = mixer.getMixedStream();
+                    // updateMediaHTML('Mixed Screen+Camera!');
 
                     videoTexture = new VideoTexture([screenStream, cameraStream]);
                     videoTexture.render();

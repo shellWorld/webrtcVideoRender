@@ -4,10 +4,10 @@ var VideoTexture = /** @class */ (function () {
     function VideoTexture(_arrayOfMediaStreams, elementClass) {
         if (elementClass === void 0) { elementClass = 'multi-streams-mixer'; }
         this.vertexCamera = [
-            0.2, -1, 0.0,
+            0.4, -1, 0.0,
             1, -1, 0.0,
             1, -0.4, 0.0,
-            0.2, -0.4, 0.0
+            0.4, -0.4, 0.0
         ];
 
         this.vertex = [
@@ -36,8 +36,8 @@ var VideoTexture = /** @class */ (function () {
         this.videos = new Array();
         // this.canvas = document.getElementById('canvas');
         this.canvas = document.createElement('canvas');
-        this.canvas.setAttribute("width","640");
-        this.canvas.setAttribute("height","480");
+        this.canvas.setAttribute("width","1920");
+        this.canvas.setAttribute("height","1080");
         // this.context = this.canvas.getContext('2d');
         // this.canvas.style = 'opacity:0;position:absolute;z-index:-1;top: -100000000;left:-1000000000; margin-top:-1000000000;margin-left:-1000000000;';
         this.canvas.className = this.elementClass;
@@ -78,8 +78,8 @@ var VideoTexture = /** @class */ (function () {
         var video = document.createElement('video');
         video.controls = false;
         video.autoplay = true;
-        video.style.width = '800px;';
-        video.style.height = '600px';
+        // video.style.width = '800px;';
+        // video.style.height = '600px';
         return video;
     };
     VideoTexture.prototype.setupContext = function () {

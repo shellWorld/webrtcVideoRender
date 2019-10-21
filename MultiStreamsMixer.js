@@ -127,9 +127,10 @@ function MultiStreamsMixer(arrayOfMediaStreams, elementClass) {
 
     this.disableLogs = false;
     this.frameInterval = 10;
-
-    this.width = 360;
-    this.height = 240;
+    this.canvas.setAttribute("width","1920");
+    this.canvas.setAttribute("height","1080");
+    // this.width = 360;
+    // this.height = 240;
 
     // use gain node to prevent echo
     this.useGainNode = true;
